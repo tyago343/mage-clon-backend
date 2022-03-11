@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { AdminAction } from 'src/modules/admin-action/admin-action.entity';
+import { AdminAction } from '../../admin-action/admin-action.entity';
 
 @Entity()
 export class User {
