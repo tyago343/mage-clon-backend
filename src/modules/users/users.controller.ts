@@ -24,15 +24,15 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
   @Post()
-  createUser(@Body() message: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(message);
+  createUser(@Body() name: CreateUserDto): Promise<User> {
+    return this.usersService.createUser(name);
   }
   @Patch(':id')
   updateUser(
     @Param('id') id: number,
-    @Body() messsage: UpdateUserDto,
+    @Body() name: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.updateUser(id, messsage);
+    return this.usersService.updateUser(id, name);
   }
   @Delete(':id')
   deleteUser(@Param('id') id: number): Promise<void> {

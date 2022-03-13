@@ -35,6 +35,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('Resource not found');
     }
+    await this.userRepository.save(user);
     return user;
   }
   async removeUser(id: number): Promise<void> {
