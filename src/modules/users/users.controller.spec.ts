@@ -49,4 +49,9 @@ describe('ProductController', () => {
     controller.updateUser(userId, updateUser);
     expect(updateSpy).toHaveBeenCalledWith(userId, updateUser);
   });
+  it('should get array of users', async () => {
+    const result = await controller.getUsers();
+    expect(result).toHaveLength(2);
+    expect(result).toBeInstanceOf(Array);
+  });
 });

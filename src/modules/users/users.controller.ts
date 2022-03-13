@@ -16,7 +16,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
-  getUsers(@Query() pagination: PaginationQueryDto): Promise<User[]> {
+  getUsers(@Query() pagination?: PaginationQueryDto): Promise<User[]> {
     return this.usersService.getUsers(pagination);
   }
   @Get(':id')

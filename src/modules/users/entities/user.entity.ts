@@ -16,9 +16,9 @@ export class User {
   @Column({ nullable: false })
   name: string;
   @OneToMany(() => AdminAction, (adminAction) => adminAction.user)
-  actions: AdminAction[];
+  actions?: AdminAction[];
   @CreateDateColumn()
-  createAt: Date;
+  createAt?: Date;
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
 }
