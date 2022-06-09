@@ -7,7 +7,10 @@ import {
   Post,
   Delete,
   Query,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { CreateUserDto, PaginationQueryDto, UpdateUserDto } from './dto';
 import { User } from './entities';
 import { UsersService } from './users.service';
@@ -20,12 +23,13 @@ export class UsersController {
     return this.usersService.getUsers(pagination);
   }
   @Get(':id')
-  getUser(@Param('id') id: number): Promise<User> {
-    return this.usersService.getUser(id);
+  getUserById(@Param('id') id: number): Promise<User> {
+    return this.usersService.getUserById(id);
   }
   @Post()
-  createUser(@Body() name: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(name);
+  createUser(@Body() user: CreateUserDto): Promise<User> {
+    console.log("sarasa", user)
+    return this.usersService.createUser(user);
   }
   @Patch(':id')
   updateUser(
@@ -37,5 +41,10 @@ export class UsersController {
   @Delete(':id')
   deleteUser(@Param('id') id: number): Promise<void> {
     return this.usersService.removeUser(id);
+  }
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  getUserByEmail(@Request() req): Promise<User> {
+    return req.user;
   }
 }

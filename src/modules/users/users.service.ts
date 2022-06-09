@@ -17,7 +17,7 @@ export class UsersService {
       take: limit,
     });
   }
-  async getUser(id: number): Promise<User> {
+  async getUserById(id: number): Promise<User> {
     const user: User = await this.userRepository.findOne(id, {
       relations: ['actions'],
     });
@@ -26,9 +26,24 @@ export class UsersService {
     }
     return user;
   }
-  createUser({ name }: CreateUserDto) {
-    const user: User = this.userRepository.create({ name });
-    return this.userRepository.save(user);
+  async getUserByEmail(email: string): Promise<User> {
+    const user: User = await this.userRepository.findOne(email, {
+      relations: ['actions'],
+    });
+    if (!user) {
+      throw new NotFoundException('Resource not found');
+    }
+    return user;
+  }
+  createUser(user: CreateUserDto) {
+    const { name, lastName, email, password } = user;
+    const createdUser: User = this.userRepository.create({
+      name,
+      lastName,
+      email,
+      password,
+    });
+    return this.userRepository.save(createdUser);
   }
   async updateUser(id: number, { name }: UpdateUserDto) {
     const user: User = await this.userRepository.preload({ id, name });

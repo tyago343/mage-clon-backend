@@ -1,14 +1,20 @@
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { User } from './entities';
 export class UsersServiceMock {
-  private users: User[] = [
+  private users: Omit<User, 'hashPassword' | 'comparePassword'>[] = [
     {
       id: 1,
       name: 'santiago',
+      password: '1111',
+      lastName: 'Casanova',
+      email: 'tyagocasanova@hotmail.com',
     },
     {
       id: 2,
       name: 'Berta',
+      password: '1111',
+      lastName: 'Casanova',
+      email: 'tyagocasanova@hotmail.com',
     },
   ];
   async createUser(createUserDto: CreateUserDto): Promise<CreateUserDto> {
@@ -28,7 +34,7 @@ export class UsersServiceMock {
     });
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<Omit<User, 'hashPassword' | 'comparePassword'>[]> {
     return Promise.resolve(this.users);
   }
 }
