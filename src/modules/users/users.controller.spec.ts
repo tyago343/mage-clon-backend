@@ -29,6 +29,10 @@ describe('ProductController', () => {
   it('should create a user', async () => {
     const mockedUser = {
       name: 'Santiaguito testiando',
+      lastName: 'Casanova',
+      username: 'tyago343',
+      password: '123123',
+      email: 'tyagocasanova@hotmail.com',
     };
     expect(await controller.createUser(mockedUser)).toEqual({
       id: expect.any(Number),

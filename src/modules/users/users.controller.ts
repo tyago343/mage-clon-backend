@@ -18,6 +18,11 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  getUserByEmail(@Request() req): any {
+    return req.user;
+  }
   @Get()
   getUsers(@Query() pagination?: PaginationQueryDto): Promise<User[]> {
     return this.usersService.getUsers(pagination);
@@ -28,7 +33,6 @@ export class UsersController {
   }
   @Post()
   createUser(@Body() user: CreateUserDto): Promise<User> {
-    console.log("sarasa", user)
     return this.usersService.createUser(user);
   }
   @Patch(':id')
@@ -41,10 +45,5 @@ export class UsersController {
   @Delete(':id')
   deleteUser(@Param('id') id: number): Promise<void> {
     return this.usersService.removeUser(id);
-  }
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  getUserByEmail(@Request() req): Promise<User> {
-    return req.user;
   }
 }

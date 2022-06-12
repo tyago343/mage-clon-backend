@@ -8,6 +8,8 @@ export class CreateUserDto {
   @IsString()
   readonly password: string;
   @IsString()
+  readonly username: string;
+  @IsString()
   readonly email: string;
   readonly actions?: string[];
   readonly createAt?: Date;

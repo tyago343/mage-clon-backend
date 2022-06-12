@@ -26,9 +26,12 @@ export class UsersService {
     }
     return user;
   }
-  async getUserByEmail(email: string): Promise<User> {
-    const user: User = await this.userRepository.findOne(email, {
+  async getUserByUsername(username: string): Promise<User> {
+    const user: User = await this.userRepository.findOne({
       relations: ['actions'],
+      where: {
+        username,
+      },
     });
     if (!user) {
       throw new NotFoundException('Resource not found');
@@ -36,12 +39,13 @@ export class UsersService {
     return user;
   }
   createUser(user: CreateUserDto) {
-    const { name, lastName, email, password } = user;
+    const { name, lastName, email, password, username } = user;
     const createdUser: User = this.userRepository.create({
       name,
       lastName,
       email,
       password,
+      username,
     });
     return this.userRepository.save(createdUser);
   }

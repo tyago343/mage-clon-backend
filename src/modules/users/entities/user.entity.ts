@@ -20,6 +20,8 @@ export class User {
   name: string;
   @Column({ nullable: false })
   lastName: string;
+  @Column({ nullable: false, unique: true })
+  username: string;
   @Column()
   @Exclude()
   password: string;
@@ -34,10 +36,10 @@ export class User {
   updatedAt?: Date;
   @BeforeInsert()
   async hashPassword() {
-    const pass = await bcrypt.hash(this.password, 10);
-    console.log(pass);
+    this.password = await bcrypt.hash(this.password, 10);
   }
   async comparePassword(password: string): Promise<boolean> {
-    return await bcrypt.compare(password, this.password);
+    const result = await bcrypt.compare(password, this.password);
+    return result;
   }
 }
