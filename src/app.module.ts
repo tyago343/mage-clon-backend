@@ -19,7 +19,11 @@ import { AuthService } from './modules/auth/auth.service';
 })
 export class AppModule {
   static port: number;
+  static cookieSecretKey: string;
   constructor(private readonly configService: ConfigService) {
     AppModule.port = Number(this.configService.get('PORT')) || 4000;
+    AppModule.cookieSecretKey = String(
+      this.configService.get('COOKIE_SECRET_KEY'),
+    );
   }
 }

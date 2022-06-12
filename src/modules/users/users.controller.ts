@@ -10,6 +10,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { CreateUserDto, PaginationQueryDto, UpdateUserDto } from './dto';
 import { User } from './entities';
@@ -20,7 +21,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  getUserByEmail(@Request() req): any {
+  getUserByEmail(): any {
+    return { msj: 'Hi!' };
+  }
+  @UseGuards(AuthenticatedGuard)
+  @Get('testing')
+  getTest(@Request() req): any {
     return req.user;
   }
   @Get()
