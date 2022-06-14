@@ -21,8 +21,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  getUserByEmail(): any {
-    return { msj: 'Hi!' };
+  getUserByEmail(@Request() req): any {
+    return { user: req.user, error: null };
   }
   @UseGuards(AuthenticatedGuard)
   @Get('testing')
