@@ -9,7 +9,7 @@ export class AuthService {
     if (user) {
       const isPasswordCorrect = await user.comparePassword(password);
       if (isPasswordCorrect) {
-        const { password, createAt, updatedAt, ...rest } = user;
+        const { password, actions, createAt, updatedAt, ...rest } = user;
         return rest;
       }
     }
