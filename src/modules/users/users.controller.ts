@@ -29,6 +29,12 @@ export class UsersController {
   getTest(@Request() req): any {
     return req.user;
   }
+  @UseGuards(AuthenticatedGuard)
+  @Get('logout')
+  logout(@Request() req): any {
+    req.session.destroy();
+    return { msg: 'The user session has ended' };
+  }
   @Get()
   getUsers(@Query() pagination?: PaginationQueryDto): Promise<User[]> {
     return this.usersService.getUsers(pagination);
