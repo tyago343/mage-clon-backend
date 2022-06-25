@@ -29,7 +29,6 @@ export class UsersController {
   getTest(@Request() req): any {
     return req.user;
   }
-  @UseGuards(AuthenticatedGuard)
   @Get('logout')
   logout(@Request() req): any {
     req.session.destroy();

@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
@@ -15,7 +16,8 @@ async function bootstrap() {
       },
     }),
   );
-  app.enableCors();
+  app.use(cookieParser());
+  app.enableCors({ credentials: true });
   app.use(
     session({
       secret: AppModule.cookieSecretKey,
