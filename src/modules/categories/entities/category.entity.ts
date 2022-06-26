@@ -14,6 +14,8 @@ export class Category {
     length: '50',
   })
   name: string;
+  @Column()
+  position?: number;
   @CreateDateColumn()
   createAt?: Date;
   @UpdateDateColumn()
