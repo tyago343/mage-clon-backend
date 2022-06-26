@@ -35,6 +35,6 @@ export class CategoriesService {
     if (!category) {
       throw new NotFoundException('Resource not found');
     }
-    this.categoryRepository.remove(category);
+    return this.categoryRepository.remove(category);
   }
 }
