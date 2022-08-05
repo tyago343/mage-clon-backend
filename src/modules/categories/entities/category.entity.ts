@@ -2,6 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,10 +17,15 @@ export class Category {
     length: '50',
   })
   name: string;
-  @Column()
+  @Column({ nullable: true })
   position?: number;
   @CreateDateColumn()
   createAt?: Date;
   @UpdateDateColumn()
   updatedAt?: Date;
+  @ManyToOne((type) => Category, (category) => category.children)
+  @JoinColumn({ name: 'parent_id' })
+  parent: Category
+  @OneToMany((type) => Category, (category) => category.parent)
+  children: Category[]
 }
