@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Category } from '../entities';
 
 export class CreateCategoryDto {
@@ -15,4 +15,8 @@ export class CreateCategoryDto {
   @IsNumber()
   @IsOptional()
   readonly parent_id?: number;
+  @Type(() => Boolean)
+  @IsBoolean()
+  @IsOptional()
+  readonly root?: boolean; 
 }

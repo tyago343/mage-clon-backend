@@ -19,6 +19,8 @@ export class Category {
   name: string;
   @Column({ nullable: true })
   position?: number;
+  @Column({default: false})
+  root?: boolean;
   @CreateDateColumn()
   createAt?: Date;
   @UpdateDateColumn()
