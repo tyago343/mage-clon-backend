@@ -17,11 +17,11 @@ export class CategoriesService {
     return await this.categoryRepository.findOne(id);
   }
   async createCategory(category: CreateCategoryDto) {
-    const {parent_id, ...rest} = category
-    const payload: any = {...rest};
-    if(parent_id){
+    const { parent_id, ...rest } = category;
+    const payload: any = { ...rest };
+    if (parent_id) {
       const parentCategory = await this.categoryRepository.findOne(parent_id);
-      if(parentCategory){
+      if (parentCategory) {
         payload.parent = parentCategory;
       }
     }
