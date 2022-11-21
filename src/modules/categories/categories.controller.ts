@@ -16,12 +16,17 @@ import { Category } from './entities';
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get(':id')
   getCategoryById(@Param('id') id: number): Promise<Category> {
     return this.categoriesService.getCategoryById(id);
   }
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
+  @Get('/view/:name')
+  getCategoryByName(@Param('name') name: string): Promise<Category> {
+    return this.categoriesService.getCategoryByName(name);
+  }
+  // @UseGuards(AuthenticatedGuard)
   @Get()
   getCategories(): Promise<Category[]> {
     return this.categoriesService.getCategories();

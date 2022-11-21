@@ -16,6 +16,9 @@ export class CategoriesService {
   async getCategoryById(id: number): Promise<Category> {
     return await this.categoryRepository.findOne(id);
   }
+  async getCategoryByName(name: string): Promise<Category> {
+    return await this.categoryRepository.findOne({where: {name}});
+  }
   async createCategory(category: CreateCategoryDto) {
     const { parent_id, ...rest } = category;
     const payload: any = { ...rest };
