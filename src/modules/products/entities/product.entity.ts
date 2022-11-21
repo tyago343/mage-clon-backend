@@ -5,7 +5,7 @@ import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "t
 @Entity({ name: "products" })
 export class Product {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
   @Column({ nullable: false })
   name: string;
   @Column({ nullable: false })

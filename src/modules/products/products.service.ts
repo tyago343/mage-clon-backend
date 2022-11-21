@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateProductDto } from './dto/create-product.dto';
+import { Category } from '../categories/entities';
+import { CreateProductDto, UpdateProductDto } from './dto';
 import { Product } from './entities';
 
 @Injectable()
@@ -9,18 +10,24 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
   ) {}
   async getProducts(): Promise<Product[]> {
-    return await this.productRepository.find();
+    return await this.productRepository.find({ relations: ['categories'] });
   }
   async getProductByUUID(uuid: string): Promise<Product> {
-    return await this.productRepository.findOne(uuid);
+    return await this.productRepository.findOne(uuid, {relations: ["categories"]});
   }
   async createProduct(product: CreateProductDto): Promise<Product> {
+    const categories: Category[] = await this.categoryRepository.findByIds(
+      product.categories,
+    );
     const createdProduct = this.productRepository.create(product);
+    createdProduct.categories = categories;
     return this.productRepository.save(createdProduct);
   }
-  async updateProduct(uuid: string, productData) {
+  async updateProduct(uuid: string, productData: UpdateProductDto) {
     const product = await this.productRepository.preload({
       id: uuid,
       ...productData,

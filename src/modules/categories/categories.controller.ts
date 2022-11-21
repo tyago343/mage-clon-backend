@@ -31,6 +31,7 @@ export class CategoriesController {
   createCategory(@Body() category: CreateCategoryDto) {
     return this.categoriesService.createCategory(category);
   }
+  @UseGuards(AuthenticatedGuard)
   @Patch(':id')
   updateCategory(
     @Param('id') id: number,
@@ -38,6 +39,7 @@ export class CategoriesController {
   ): Promise<Category> {
     return this.categoriesService.updateCategory(id, category);
   }
+  @UseGuards(AuthenticatedGuard)
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
     return this.categoriesService.removeCategory(id);
