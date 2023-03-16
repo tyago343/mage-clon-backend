@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-
 import { UsersModule } from './modules/users/users.module';
 import { AdminActionModule } from './modules/admin-action/admin-action.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -17,7 +16,7 @@ import { ProductsModule } from './modules/products/products.module';
     DatabaseModule,
     AuthModule,
     CategoriesModule,
-    ProductsModule
+    ProductsModule,
   ],
   providers: [AuthService],
 })

@@ -1,10 +1,15 @@
-import { Category } from "src/modules/categories/entities";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from 'src/modules/categories/entities';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-
-@Entity({ name: "products" })
+@Entity({ name: 'products' })
 export class Product {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ nullable: false })
   name: string;
@@ -12,7 +17,9 @@ export class Product {
   price: string;
   @Column({ nullable: false })
   description: string;
-  @ManyToMany(() => Category, (category) => category.products, { cascade: true })
+  @ManyToMany(() => Category, (category) => category.products, {
+    cascade: true,
+  })
   @JoinTable()
-  categories: Category[]
+  categories: Category[];
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Product } from 'src/modules/products/entities';
 import {
   Column,
@@ -21,7 +22,7 @@ export class Category {
   name: string;
   @Column({ nullable: true })
   position?: number;
-  @Column({default: false})
+  @Column({ default: false })
   root?: boolean;
   @CreateDateColumn()
   createAt?: Date;
@@ -29,9 +30,9 @@ export class Category {
   updatedAt?: Date;
   @ManyToOne((type) => Category, (category) => category.children)
   @JoinColumn({ name: 'parent_id' })
-  parent: Category
+  parent: Category;
   @OneToMany((type) => Category, (category) => category.parent)
-  children: Category[]
+  children: Category[];
   @ManyToMany(() => Product, (product) => product.categories)
-  products: Product[]
+  products: Product[];
 }
